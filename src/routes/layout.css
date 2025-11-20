@@ -1,2 +1,72 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
+
+:root {
+	/* Fear theme (dark) - NF's dark aesthetic: matte black with subtle charcoal layers */
+	--fear-bg: #0a0a0a;
+	--fear-surface: #141414;
+	--fear-surface-hover: #1f1f1f;
+	--fear-border: #404040;
+	--fear-text: #f4f4f4;
+	--fear-text-muted: #8d8d8d;
+	--fear-accent: #c0392b; /* Intensity, tension */
+	--fear-accent-hover: #a02f23;
+	--fear-accent-alt: #168f89; /* Calm, introspective clarity */
+
+	/* Hope theme (light) - NF HOPE era: washed whites with soft grey depth */
+	--hope-bg: #ffffff;
+	--hope-surface: #f4f4f4;
+	--hope-surface-hover: #eaeaea;
+	--hope-border: #dfdfdf;
+	--hope-text: #1a1a1a;
+	--hope-text-muted: #6e6e6e;
+	--hope-accent: #168f89; /* Calm teal */
+	--hope-accent-hover: #127a75;
+	--hope-accent-alt: #2980b9; /* Cinematic blue */
+
+	/* Tier colors - NF-inspired moods */
+	--tier-s: #2980b9; /* Cinematic blue */
+	--tier-a: #168f89; /* Calm teal */
+	--tier-b: #7f8c8d; /* Steel grey */
+	--tier-c: #6e6e6e; /* Muted grey */
+	--tier-d: #595f67; /* NF hoodie grey */
+	--tier-f: #c0392b; /* Intensity red */
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family:
+		system-ui,
+		-apple-system,
+		sans-serif;
+	transition:
+		background-color 0.3s ease,
+		color 0.3s ease;
+}
+
+.theme-fear {
+	background-color: var(--fear-bg);
+	color: var(--fear-text);
+}
+
+.theme-hope {
+	background-color: var(--hope-bg);
+	color: var(--hope-text);
+}
+
+/* Standardized button styles */
+button {
+	cursor: pointer;
+	user-select: none;
+	transition: all 0.2s ease;
+}
+
+button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+button:active:not(:disabled) {
+	transform: scale(0.98);
+}

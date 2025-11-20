@@ -1,0 +1,663 @@
+<script lang="ts">
+	import { dndzone } from 'svelte-dnd-action';
+	import { flip } from 'svelte/animate';
+	import SongCard from './SongCard.svelte';
+	import TierButton from './TierButton.svelte';
+	import SpotifyModal from './SpotifyModal.svelte';
+	import { tierStore } from '$lib/stores/tier-store.svelte';
+	import type { TierRank } from '$lib/encoding';
+	import type { Song } from '$lib/data/nf-discography';
+
+	interface Props {
+		handleVideoClick: (youtubeId: string) => void;
+		handleShowFinalShare: () => void;
+	}
+
+	let { handleVideoClick, handleShowFinalShare }: Props = $props();
+
+	let showSongPicker = $state(false);
+	let showSkippedModal = $state(false);
+	let showPlayVideo = $state(true);
+	let spotifyId = $state<string | null>(null);
+
+	const flipDurationMs = 200;
+	const transformDraggedElement = (el: HTMLElement) => {
+		// Preserve the original width during drag to prevent collapse
+		if (el) {
+			el.style.width = el.offsetWidth + 'px';
+		}
+	};
+
+	// Create local arrays for each tier that sync with tierStore
+	let sTierSongs = $state<Song[]>([]);
+	let aTierSongs = $state<Song[]>([]);
+	let bTierSongs = $state<Song[]>([]);
+	let cTierSongs = $state<Song[]>([]);
+	let dTierSongs = $state<Song[]>([]);
+	let fTierSongs = $state<Song[]>([]);
+
+	let isDragging = $state(false);
+
+	// Sync local arrays with tierStore (but not during drag operations)
+	$effect(() => {
+		if (isDragging) return;
+
+		const groups = tierStore.tierGroups;
+		sTierSongs = groups.find((g) => g.tier === 's')?.songs || [];
+		aTierSongs = groups.find((g) => g.tier === 'a')?.songs || [];
+		bTierSongs = groups.find((g) => g.tier === 'b')?.songs || [];
+		cTierSongs = groups.find((g) => g.tier === 'c')?.songs || [];
+		dTierSongs = groups.find((g) => g.tier === 'd')?.songs || [];
+		fTierSongs = groups.find((g) => g.tier === 'f')?.songs || [];
+	});
+
+	function handleDndConsider(tier: TierRank, e: CustomEvent<{ items: Song[] }>) {
+		isDragging = true;
+
+		// Update the local array immediately for smooth animation
+		switch (tier) {
+			case 's':
+				sTierSongs = e.detail.items;
+				break;
+			case 'a':
+				aTierSongs = e.detail.items;
+				break;
+			case 'b':
+				bTierSongs = e.detail.items;
+				break;
+			case 'c':
+				cTierSongs = e.detail.items;
+				break;
+			case 'd':
+				dTierSongs = e.detail.items;
+				break;
+			case 'f':
+				fTierSongs = e.detail.items;
+				break;
+		}
+
+		// Deduplicate: ensure each song only appears in one tier
+		// Get all song IDs from the current tier
+		const currentTierSongIds = new Set(e.detail.items.map((s) => s.id));
+
+		// Remove these songs from all other tiers
+		if (tier !== 's') sTierSongs = sTierSongs.filter((s) => !currentTierSongIds.has(s.id));
+		if (tier !== 'a') aTierSongs = aTierSongs.filter((s) => !currentTierSongIds.has(s.id));
+		if (tier !== 'b') bTierSongs = bTierSongs.filter((s) => !currentTierSongIds.has(s.id));
+		if (tier !== 'c') cTierSongs = cTierSongs.filter((s) => !currentTierSongIds.has(s.id));
+		if (tier !== 'd') dTierSongs = dTierSongs.filter((s) => !currentTierSongIds.has(s.id));
+		if (tier !== 'f') fTierSongs = fTierSongs.filter((s) => !currentTierSongIds.has(s.id));
+	}
+
+	function handleDndFinalize(tier: TierRank, e: CustomEvent<{ items: Song[] }>) {
+		// Update the local array
+		switch (tier) {
+			case 's':
+				sTierSongs = e.detail.items;
+				break;
+			case 'a':
+				aTierSongs = e.detail.items;
+				break;
+			case 'b':
+				bTierSongs = e.detail.items;
+				break;
+			case 'c':
+				cTierSongs = e.detail.items;
+				break;
+			case 'd':
+				dTierSongs = e.detail.items;
+				break;
+			case 'f':
+				fTierSongs = e.detail.items;
+				break;
+		}
+
+		// Deduplicate: ensure each song only appears in one tier
+		const currentTierSongIds = new Set(e.detail.items.map((s) => s.id));
+
+		// Remove these songs from all other tiers
+		if (tier !== 's') sTierSongs = sTierSongs.filter((s) => !currentTierSongIds.has(s.id));
+		if (tier !== 'a') aTierSongs = aTierSongs.filter((s) => !currentTierSongIds.has(s.id));
+		if (tier !== 'b') bTierSongs = bTierSongs.filter((s) => !currentTierSongIds.has(s.id));
+		if (tier !== 'c') cTierSongs = cTierSongs.filter((s) => !currentTierSongIds.has(s.id));
+		if (tier !== 'd') dTierSongs = dTierSongs.filter((s) => !currentTierSongIds.has(s.id));
+		if (tier !== 'f') fTierSongs = fTierSongs.filter((s) => !currentTierSongIds.has(s.id));
+
+		// Update tierStore with new rankings
+		const allSongs = [
+			...sTierSongs.map((s) => ({ song: s, tier: 's' as TierRank })),
+			...aTierSongs.map((s) => ({ song: s, tier: 'a' as TierRank })),
+			...bTierSongs.map((s) => ({ song: s, tier: 'b' as TierRank })),
+			...cTierSongs.map((s) => ({ song: s, tier: 'c' as TierRank })),
+			...dTierSongs.map((s) => ({ song: s, tier: 'd' as TierRank })),
+			...fTierSongs.map((s) => ({ song: s, tier: 'f' as TierRank }))
+		];
+
+		// Update tierStore for any songs that changed tiers
+		allSongs.forEach(({ song, tier }) => {
+			const currentRank = tierStore.rankings.get(song.id);
+			if (currentRank !== tier) {
+				tierStore.rankSong(song.id, tier);
+			}
+		});
+
+		isDragging = false;
+	}
+
+	function handleTierSelect(tier: TierRank) {
+		if (tierStore.currentSong) {
+			tierStore.rankSong(tierStore.currentSong.id, tier);
+		}
+	}
+
+	function handleRemoveSong(songId: string) {
+		tierStore.rerankSong(songId);
+	}
+
+	function handleSelectSong(song: Song) {
+		tierStore.changeSong(song.id);
+		showSongPicker = false;
+	}
+
+	function handleSpotifyClick(id: string) {
+		spotifyId = id;
+	}
+</script>
+
+<div
+	class="desktop-ranker flex h-full"
+	class:fear={tierStore.theme === 'fear'}
+	class:hope={tierStore.theme === 'hope'}
+>
+	<!-- Sidebar: Current Song -->
+	<div
+		class="sidebar flex w-96 flex-col border-r"
+		class:fear={tierStore.theme === 'fear'}
+		class:hope={tierStore.theme === 'hope'}
+	>
+		<!-- Progress -->
+		<div
+			class="border-b p-4"
+			class:fear={tierStore.theme === 'fear'}
+			class:hope={tierStore.theme === 'hope'}
+		>
+			<div class="mb-2 flex justify-between text-sm">
+				<span>Progress</span>
+				<span
+					>{tierStore.progress.ranked}/{tierStore.progress.total} ({tierStore.progress
+						.percentage}%)</span
+				>
+			</div>
+			<div
+				class="h-2 overflow-hidden rounded-full"
+				class:fear={tierStore.theme === 'fear'}
+				class:hope={tierStore.theme === 'hope'}
+			>
+				<div
+					class="h-full transition-all duration-300"
+					class:fear={tierStore.theme === 'fear'}
+					class:hope={tierStore.theme === 'hope'}
+					style="width: {tierStore.progress.percentage}%"
+				></div>
+			</div>
+		</div>
+
+		{#if tierStore.currentSong}
+			<div class="flex flex-1 flex-col p-4">
+				<div class="mb-4 flex items-center justify-between">
+					<h2 class="text-xl font-bold">Rank This Song</h2>
+					<div class="flex gap-2">
+						<button
+							type="button"
+							class="song-picker-btn rounded border px-2 py-1 text-sm transition-colors"
+							class:fear={tierStore.theme === 'fear'}
+							class:hope={tierStore.theme === 'hope'}
+							onclick={() => (showSongPicker = true)}
+							title="Choose a different song"
+						>
+							<i class="ri-music-2-line"></i>
+						</button>
+					</div>
+				</div>
+				<SongCard
+					song={tierStore.currentSong}
+					size="large"
+					onvideoclick={handleVideoClick}
+					onspotifyclick={handleSpotifyClick}
+				/>
+
+				{#if tierStore.currentSong.youtubeId}
+					<div class="mt-4">
+						{#if showPlayVideo}
+							<div class="aspect-video w-full">
+								<iframe
+									width="100%"
+									height="100%"
+									src="https://www.youtube.com/embed/{tierStore.currentSong.youtubeId}"
+									title="YouTube video player"
+									frameborder="0"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+									allowfullscreen
+								></iframe>
+							</div>
+							<button
+								type="button"
+								class="mt-2 w-full text-center text-sm opacity-70 hover:opacity-100"
+								onclick={() => (showPlayVideo = false)}
+							>
+								Hide Video
+							</button>
+						{:else}
+							<button
+								type="button"
+								class="w-full rounded border p-2 text-sm transition-colors"
+								class:fear={tierStore.theme === 'fear'}
+								class:hope={tierStore.theme === 'hope'}
+								onclick={() => (showPlayVideo = true)}
+							>
+								<i class="ri-play-circle-line mr-1"></i>
+								Play on YouTube
+							</button>
+						{/if}
+					</div>
+				{/if}
+
+				<div class="mt-6">
+					<h3 class="mb-3 text-sm font-semibold">Select Tier:</h3>
+					<div class="flex flex-col gap-2">
+						{#each ['s', 'a', 'b', 'c', 'd', 'f'] as tier (tier)}
+							<TierButton
+								tier={tier as TierRank}
+								onclick={() => handleTierSelect(tier as TierRank)}
+							/>
+						{/each}
+					</div>
+				</div>
+
+				<button
+					type="button"
+					class="secondary mt-4 rounded-lg border p-2 text-sm transition-colors"
+					class:fear={tierStore.theme === 'fear'}
+					class:hope={tierStore.theme === 'hope'}
+					onclick={() => tierStore.skipCurrentSong()}
+				>
+					Skip
+				</button>
+			</div>
+		{:else}
+			<div class="flex flex-1 flex-col items-center justify-center p-4">
+				<div class="mb-6 text-center">
+					<h2 class="mb-2 text-2xl font-bold">All Done!</h2>
+					<p class="mb-6 opacity-70">You've ranked all songs.</p>
+					<button
+						type="button"
+						class="share-final-button mt-4 rounded-lg border-2 p-3 px-8 font-bold transition-colors"
+						class:fear={tierStore.theme === 'fear'}
+						class:hope={tierStore.theme === 'hope'}
+						onclick={handleShowFinalShare}
+					>
+						Share These Tiers
+					</button>
+				</div>
+				<div class="mt-8 text-center text-xs opacity-60">
+					<p>Made by Tony</p>
+					<a
+						href="https://buymeacoffee.com/anowell"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="mt-2 inline-flex items-center gap-1 rounded border px-3 py-1 text-xs transition-colors hover:opacity-80"
+						class:fear={tierStore.theme === 'fear'}
+						class:hope={tierStore.theme === 'hope'}
+					>
+						<i class="ri-cup-line"></i>
+						Buy me a coffee
+					</a>
+				</div>
+			</div>
+		{/if}
+	</div>
+
+	<!-- Main Area: Tier Lists -->
+	<div class="flex-1 overflow-auto p-6">
+		<div class="space-y-6">
+			{#each [
+				{ tier: 's', label: 'S Tier', songs: sTierSongs },
+				{ tier: 'a', label: 'A Tier', songs: aTierSongs },
+				{ tier: 'b', label: 'B Tier', songs: bTierSongs },
+				{ tier: 'c', label: 'C Tier', songs: cTierSongs },
+				{ tier: 'd', label: 'D Tier', songs: dTierSongs },
+				{ tier: 'f', label: 'F Tier', songs: fTierSongs }
+			] as tierGroup (tierGroup.tier)}
+				<div
+					class="tier-group"
+					class:fear={tierStore.theme === 'fear'}
+					class:hope={tierStore.theme === 'hope'}
+				>
+					<div
+						class="tier-header flex items-center justify-between p-3 font-bold"
+						style="background-color: var(--tier-{tierGroup.tier}); color: white;"
+					>
+						<span>{tierGroup.label}</span>
+						<span class="text-sm opacity-90">{tierGroup.songs.length} songs</span>
+					</div>
+					<div class="tier-content min-h-24 p-4">
+						<div
+							class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3"
+							class:empty-tier={tierGroup.songs.length === 0}
+							use:dndzone={{
+								items: tierGroup.songs,
+								flipDurationMs,
+								type: 'tiers',
+								morphDisabled: true,
+								transformDraggedElement
+							}}
+							onconsider={(e) => handleDndConsider(tierGroup.tier as TierRank, e)}
+							onfinalize={(e) => handleDndFinalize(tierGroup.tier as TierRank, e)}
+						>
+							{#each tierGroup.songs as song (song.id)}
+								<div class="group relative" animate:flip={{ duration: flipDurationMs }}>
+									<SongCard
+										{song}
+										size="small"
+										interactive={false}
+										onvideoclick={handleVideoClick}
+									/>
+									<div
+										class="absolute top-1 right-1 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100"
+									>
+										<button
+											type="button"
+											class="rounded bg-black/50 px-2 py-1 text-xs text-white hover:bg-black/70"
+											onclick={() => handleRemoveSong(song.id)}
+											title="Reset Rating"
+										>
+											×
+										</button>
+									</div>
+								</div>
+							{/each}
+							{#if tierGroup.songs.length === 0}
+								<p class="empty-message text-center text-sm opacity-50">Drag songs here</p>
+							{/if}
+						</div>
+					</div>
+				</div>
+			{/each}
+
+			<!-- Skipped Songs -->
+			{#if tierStore.skippedSongs.length > 0}
+				<div class="mt-6 text-center">
+					<button
+						type="button"
+						class="text-sm opacity-70 hover:opacity-100"
+						onclick={() => (showSkippedModal = true)}
+					>
+						{tierStore.skippedSongs.length} song{tierStore.skippedSongs.length === 1 ? '' : 's'} skipped
+					</button>
+				</div>
+			{/if}
+		</div>
+	</div>
+</div>
+
+<!-- Song Picker Modal -->
+{#if showSongPicker}
+	<div class="modal-overlay" onclick={() => (showSongPicker = false)}>
+		<div
+			class="modal-content"
+			class:fear={tierStore.theme === 'fear'}
+			class:hope={tierStore.theme === 'hope'}
+			onclick={(e) => e.stopPropagation()}
+		>
+			<div class="mb-4 flex items-center justify-between">
+				<h3 class="text-lg font-bold">Choose the next song to rank</h3>
+				<button
+					type="button"
+					class="text-2xl leading-none"
+					onclick={() => (showSongPicker = false)}
+				>
+					×
+				</button>
+			</div>
+			<div class="max-h-96 space-y-2 overflow-auto">
+				{#each tierStore.unrankedSongs as song (song.id)}
+					<button type="button" class="w-full text-left" onclick={() => handleSelectSong(song)}>
+						<SongCard {song} size="small" onvideoclick={handleVideoClick} />
+					</button>
+				{/each}
+			</div>
+		</div>
+	</div>
+{/if}
+
+<!-- Skipped Songs Modal -->
+{#if showSkippedModal}
+	<div class="modal-overlay" onclick={() => (showSkippedModal = false)}>
+		<div
+			class="modal-content"
+			class:fear={tierStore.theme === 'fear'}
+			class:hope={tierStore.theme === 'hope'}
+			onclick={(e) => e.stopPropagation()}
+		>
+			<div class="mb-4 flex items-center justify-between">
+				<h3 class="text-lg font-bold">Skipped Songs</h3>
+				<button
+					type="button"
+					class="text-2xl leading-none"
+					onclick={() => (showSkippedModal = false)}
+				>
+					×
+				</button>
+			</div>
+			<div class="max-h-96 space-y-2 overflow-auto">
+				{#each tierStore.skippedSongs as song (song.id)}
+					<div class="group relative">
+						<SongCard {song} size="small" interactive={false} onvideoclick={handleVideoClick} />
+						<div
+							class="absolute top-1 right-1 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100"
+						>
+							<button
+								type="button"
+								class="rounded bg-black/50 px-2 py-1 text-xs text-white hover:bg-black/70"
+								onclick={() => {
+									handleRemoveSong(song.id);
+									if (tierStore.skippedSongs.length === 0) {
+										showSkippedModal = false;
+									}
+								}}
+								title="Reset Rating"
+							>
+								×
+							</button>
+						</div>
+					</div>
+				{/each}
+			</div>
+		</div>
+	</div>
+{/if}
+
+<!-- Spotify Modal -->
+{#if spotifyId}
+	<SpotifyModal {spotifyId} onclose={() => (spotifyId = null)} />
+{/if}
+
+<style>
+	.sidebar.fear {
+		background-color: var(--fear-surface);
+		border-color: var(--fear-border);
+	}
+
+	.sidebar.hope {
+		background-color: var(--hope-surface);
+		border-color: var(--hope-border);
+	}
+
+	.sidebar > div.fear {
+		border-color: var(--fear-border);
+	}
+
+	.sidebar > div.hope {
+		border-color: var(--hope-border);
+	}
+
+	.sidebar > div > div.fear {
+		background-color: var(--fear-bg);
+	}
+
+	.sidebar > div > div.hope {
+		background-color: var(--hope-bg);
+	}
+
+	.sidebar > div > div > div.fear {
+		background-color: var(--fear-accent);
+	}
+
+	.sidebar > div > div > div.hope {
+		background-color: var(--hope-accent);
+	}
+
+	button.secondary.fear {
+		background-color: var(--fear-surface);
+		border-color: var(--fear-border);
+		color: var(--fear-text);
+	}
+
+	button.secondary.hope {
+		background-color: var(--hope-surface);
+		border-color: var(--hope-border);
+		color: var(--hope-text);
+	}
+
+	button.secondary.fear:hover {
+		background-color: var(--fear-surface-hover);
+	}
+
+	button.secondary.hope:hover {
+		background-color: var(--hope-surface-hover);
+	}
+
+	.tier-group {
+		border-radius: 0.5rem;
+		overflow: hidden;
+		border: 1px solid;
+	}
+
+	.tier-group.fear {
+		border-color: var(--fear-border);
+	}
+
+	.tier-group.hope {
+		border-color: var(--hope-border);
+	}
+
+	.tier-content {
+		transition: background-color 0.2s ease;
+	}
+
+	.empty-tier {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 100px;
+	}
+
+	.empty-message {
+		grid-column: 1 / -1;
+	}
+
+	/* Ensure dragged cards maintain consistent width */
+	.tier-content .grid > div {
+		min-width: 200px;
+	}
+
+	/* Style for dragged items to prevent width collapse */
+	:global(.tier-content [aria-grabbed='true']) {
+		width: 100%;
+		min-width: 200px;
+	}
+
+	.share-final-button.fear {
+		background-color: var(--fear-accent);
+		border-color: var(--fear-accent);
+		color: white;
+	}
+
+	.share-final-button.hope {
+		background-color: var(--hope-accent);
+		border-color: var(--hope-accent);
+		color: white;
+	}
+
+	.share-final-button.fear:hover {
+		background-color: var(--fear-accent-hover);
+		border-color: var(--fear-accent-hover);
+	}
+
+	.share-final-button.hope:hover {
+		background-color: var(--hope-accent-hover);
+		border-color: var(--hope-accent-hover);
+	}
+
+	.song-picker-btn.fear {
+		background-color: var(--fear-surface);
+		border-color: var(--fear-border);
+		color: var(--fear-text);
+	}
+
+	.song-picker-btn.hope {
+		background-color: var(--hope-surface);
+		border-color: var(--hope-border);
+		color: var(--hope-text);
+	}
+
+	.song-picker-btn.fear:hover {
+		background-color: var(--fear-surface-hover);
+	}
+
+	.song-picker-btn.hope:hover {
+		background-color: var(--hope-surface-hover);
+	}
+
+	a.fear {
+		background-color: var(--fear-surface);
+		border-color: var(--fear-border);
+		color: var(--fear-text);
+	}
+
+	a.hope {
+		background-color: var(--hope-surface);
+		border-color: var(--hope-border);
+		color: var(--hope-text);
+	}
+
+	.modal-overlay {
+		position: fixed;
+		inset: 0;
+		background-color: rgba(0, 0, 0, 0.7);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem;
+		z-index: 50;
+	}
+
+	.modal-content {
+		width: 100%;
+		max-width: 500px;
+		padding: 1.5rem;
+		border-radius: 0.5rem;
+		max-height: 80vh;
+		overflow: auto;
+	}
+
+	.modal-content.fear {
+		background-color: var(--fear-surface);
+		color: var(--fear-text);
+	}
+
+	.modal-content.hope {
+		background-color: var(--hope-surface);
+		color: var(--hope-text);
+	}
+</style>

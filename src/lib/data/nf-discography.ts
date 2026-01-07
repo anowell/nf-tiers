@@ -25,6 +25,14 @@ export interface Album {
 
 export const albums: Album[] = [
 	{
+		id: 'moments',
+		title: 'Moments',
+		year: 2010,
+		type: 'album',
+		coverPlaceholder: '🎵',
+		coverImage: covers.moments
+	},
+	{
 		id: 'imfree',
 		title: "I'm Free",
 		year: 2012,
@@ -99,9 +107,115 @@ export const albums: Album[] = [
 ];
 
 export const songs: Song[] = [
-	// I'm Free EP (2012)
+	// Moments (2010)
 	{
 		id: 's001',
+		title: 'Escape',
+		album: 'Moments',
+		albumId: 'moments',
+		year: 2010,
+		trackNumber: 1
+	},
+	{
+		id: 's002',
+		title: 'Miss You',
+		album: 'Moments',
+		albumId: 'moments',
+		year: 2010,
+		trackNumber: 2
+	},
+	{
+		id: 's003',
+		title: 'Circles',
+		album: 'Moments',
+		albumId: 'moments',
+		year: 2010,
+		trackNumber: 3
+	},
+	{
+		id: 's004',
+		title: 'Beautiful',
+		album: 'Moments',
+		albumId: 'moments',
+		year: 2010,
+		trackNumber: 4
+	},
+	{
+		id: 's005',
+		title: 'Moments',
+		album: 'Moments',
+		albumId: 'moments',
+		year: 2010,
+		trackNumber: 5
+	},
+	{
+		id: 's006',
+		title: 'Your Grace',
+		album: 'Moments',
+		albumId: 'moments',
+		year: 2010,
+		trackNumber: 6
+	},
+	{
+		id: 's007',
+		title: 'Overdose',
+		album: 'Moments',
+		albumId: 'moments',
+		year: 2010,
+		trackNumber: 7
+	},
+	{
+		id: 's008',
+		title: 'Wrap Me In Your Arms',
+		album: 'Moments',
+		albumId: 'moments',
+		year: 2010,
+		trackNumber: 8
+	},
+	{
+		id: 's009',
+		title: 'Falling Apart',
+		album: 'Moments',
+		albumId: 'moments',
+		year: 2010,
+		trackNumber: 9
+	},
+	{
+		id: 's010',
+		title: 'Reality',
+		album: 'Moments',
+		albumId: 'moments',
+		year: 2010,
+		trackNumber: 10
+	},
+	{
+		id: 's011',
+		title: "I'm Gonna Fly",
+		album: 'Moments',
+		albumId: 'moments',
+		year: 2010,
+		trackNumber: 11
+	},
+	{
+		id: 's012',
+		title: 'Until I Die',
+		album: 'Moments',
+		albumId: 'moments',
+		year: 2010,
+		trackNumber: 12
+	},
+	{
+		id: 's013',
+		title: 'With Me',
+		album: 'Moments',
+		albumId: 'moments',
+		year: 2010,
+		trackNumber: 13
+	},
+
+	// I'm Free EP (2012)
+	{
+		id: 's014',
 		title: 'Understand Me',
 		album: "I'm Free",
 		albumId: 'imfree',
@@ -109,7 +223,7 @@ export const songs: Song[] = [
 		trackNumber: 1
 	},
 	{
-		id: 's002',
+		id: 's015',
 		title: 'Alone',
 		album: "I'm Free",
 		albumId: 'imfree',
@@ -118,7 +232,7 @@ export const songs: Song[] = [
 		featuring: ['Sean Simmonds']
 	},
 	{
-		id: 's003',
+		id: 's016',
 		title: "I've Been There",
 		album: "I'm Free",
 		albumId: 'imfree',
@@ -126,7 +240,7 @@ export const songs: Song[] = [
 		trackNumber: 3
 	},
 	{
-		id: 's004',
+		id: 's017',
 		title: 'Not The Same',
 		album: "I'm Free",
 		albumId: 'imfree',
@@ -134,7 +248,7 @@ export const songs: Song[] = [
 		trackNumber: 4
 	},
 	{
-		id: 's005',
+		id: 's018',
 		title: "I'm Free",
 		album: "I'm Free",
 		albumId: 'imfree',
@@ -142,7 +256,7 @@ export const songs: Song[] = [
 		trackNumber: 5
 	},
 	{
-		id: 's006',
+		id: 's019',
 		title: 'I Got Jesus',
 		album: "I'm Free",
 		albumId: 'imfree',
@@ -150,7 +264,7 @@ export const songs: Song[] = [
 		trackNumber: 6
 	},
 	{
-		id: 's007',
+		id: 's020',
 		title: "That's Alright",
 		album: "I'm Free",
 		albumId: 'imfree',
@@ -158,7 +272,7 @@ export const songs: Song[] = [
 		trackNumber: 7
 	},
 	{
-		id: 's008',
+		id: 's021',
 		title: 'Invisible',
 		album: "I'm Free",
 		albumId: 'imfree',
@@ -166,7 +280,7 @@ export const songs: Song[] = [
 		trackNumber: 8
 	},
 	{
-		id: 's009',
+		id: 's022',
 		title: 'Goodbye',
 		album: "I'm Free",
 		albumId: 'imfree',
@@ -175,23 +289,23 @@ export const songs: Song[] = [
 	},
 
 	// NF EP (2014)
-	{ id: 's010', title: 'All I Have', album: 'NF', albumId: 'nf', year: 2014, trackNumber: 1 },
-	{ id: 's011', title: 'Wake Up', album: 'NF', albumId: 'nf', year: 2014, trackNumber: 2 },
-	{ id: 's012', title: 'Hands Up', album: 'NF', albumId: 'nf', year: 2014, trackNumber: 3 },
-	{ id: 's013', title: 'Only One', album: 'NF', albumId: 'nf', year: 2014, trackNumber: 4 },
+	{ id: 's023', title: 'All I Have', album: 'NF', albumId: 'nf', year: 2014, trackNumber: 1 },
+	{ id: 's024', title: 'Wake Up', album: 'NF', albumId: 'nf', year: 2014, trackNumber: 2 },
+	{ id: 's025', title: 'Hands Up', album: 'NF', albumId: 'nf', year: 2014, trackNumber: 3 },
+	{ id: 's026', title: 'Only One', album: 'NF', albumId: 'nf', year: 2014, trackNumber: 4 },
 	{
-		id: 's014',
+		id: 's027',
 		title: 'Thing Called Love',
 		album: 'NF',
 		albumId: 'nf',
 		year: 2014,
 		trackNumber: 5
 	},
-	{ id: 's015', title: 'Just Being Me', album: 'NF', albumId: 'nf', year: 2014, trackNumber: 6 },
+	{ id: 's028', title: 'Just Being Me', album: 'NF', albumId: 'nf', year: 2014, trackNumber: 6 },
 
 	// Mansion (2015)
 	{
-		id: 's016',
+		id: 's029',
 		title: 'Intro',
 		album: 'Mansion',
 		albumId: 'mansion',
@@ -200,7 +314,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's017',
+		id: 's030',
 		title: 'Mansion',
 		album: 'Mansion',
 		albumId: 'mansion',
@@ -210,7 +324,7 @@ export const songs: Song[] = [
 		tags: ['gateway', 'journey']
 	},
 	{
-		id: 's018',
+		id: 's031',
 		title: 'All I Have',
 		album: 'Mansion',
 		albumId: 'mansion',
@@ -218,9 +332,9 @@ export const songs: Song[] = [
 		trackNumber: 3,
 		tags: ['journey']
 	},
-	{ id: 's019', title: 'Wait', album: 'Mansion', albumId: 'mansion', year: 2015, trackNumber: 4 },
+	{ id: 's032', title: 'Wait', album: 'Mansion', albumId: 'mansion', year: 2015, trackNumber: 4 },
 	{
-		id: 's020',
+		id: 's033',
 		title: 'Wake Up',
 		album: 'Mansion',
 		albumId: 'mansion',
@@ -228,7 +342,7 @@ export const songs: Song[] = [
 		trackNumber: 5
 	},
 	{
-		id: 's021',
+		id: 's034',
 		title: 'Face It',
 		album: 'Mansion',
 		albumId: 'mansion',
@@ -236,7 +350,7 @@ export const songs: Song[] = [
 		trackNumber: 6
 	},
 	{
-		id: 's022',
+		id: 's035',
 		title: 'Motivated',
 		album: 'Mansion',
 		albumId: 'mansion',
@@ -244,7 +358,7 @@ export const songs: Song[] = [
 		trackNumber: 7
 	},
 	{
-		id: 's023',
+		id: 's036',
 		title: 'Notepad',
 		album: 'Mansion',
 		albumId: 'mansion',
@@ -253,7 +367,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's024',
+		id: 's037',
 		title: 'Turn The Music Up',
 		album: 'Mansion',
 		albumId: 'mansion',
@@ -261,7 +375,7 @@ export const songs: Song[] = [
 		trackNumber: 9
 	},
 	{
-		id: 's025',
+		id: 's038',
 		title: 'Paralyzed',
 		album: 'Mansion',
 		albumId: 'mansion',
@@ -270,7 +384,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's026',
+		id: 's039',
 		title: "I'll Keep On",
 		album: 'Mansion',
 		albumId: 'mansion',
@@ -279,7 +393,7 @@ export const songs: Song[] = [
 		featuring: ['Jeremiah Carlson']
 	},
 	{
-		id: 's027',
+		id: 's040',
 		title: 'Can You Hold Me',
 		album: 'Mansion',
 		albumId: 'mansion',
@@ -290,7 +404,7 @@ export const songs: Song[] = [
 
 	// Therapy Session (2016)
 	{
-		id: 's028',
+		id: 's041',
 		title: 'Intro 2',
 		album: 'Therapy Session',
 		albumId: 'therapy',
@@ -299,7 +413,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's029',
+		id: 's042',
 		title: 'Therapy Session',
 		album: 'Therapy Session',
 		albumId: 'therapy',
@@ -308,7 +422,7 @@ export const songs: Song[] = [
 		tags: ['gateway', 'journey']
 	},
 	{
-		id: 's030',
+		id: 's043',
 		title: 'I Just Wanna Know',
 		album: 'Therapy Session',
 		albumId: 'therapy',
@@ -317,7 +431,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's031',
+		id: 's044',
 		title: 'How Could You Leave Us',
 		album: 'Therapy Session',
 		albumId: 'therapy',
@@ -326,7 +440,7 @@ export const songs: Song[] = [
 		tags: ['gateway', 'journey']
 	},
 	{
-		id: 's032',
+		id: 's045',
 		title: 'Breathe',
 		album: 'Therapy Session',
 		albumId: 'therapy',
@@ -334,7 +448,7 @@ export const songs: Song[] = [
 		trackNumber: 5
 	},
 	{
-		id: 's033',
+		id: 's046',
 		title: 'Real',
 		album: 'Therapy Session',
 		albumId: 'therapy',
@@ -343,7 +457,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's034',
+		id: 's047',
 		title: 'Oh Lord',
 		album: 'Therapy Session',
 		albumId: 'therapy',
@@ -352,7 +466,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's035',
+		id: 's048',
 		title: 'I Can Feel It',
 		album: 'Therapy Session',
 		albumId: 'therapy',
@@ -360,7 +474,7 @@ export const songs: Song[] = [
 		trackNumber: 8
 	},
 	{
-		id: 's036',
+		id: 's049',
 		title: 'Got You On My Mind',
 		album: 'Therapy Session',
 		albumId: 'therapy',
@@ -368,7 +482,7 @@ export const songs: Song[] = [
 		trackNumber: 9
 	},
 	{
-		id: 's037',
+		id: 's050',
 		title: "Grindin'",
 		album: 'Therapy Session',
 		albumId: 'therapy',
@@ -378,7 +492,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's038',
+		id: 's051',
 		title: "Wish You Wouldn't",
 		album: 'Therapy Session',
 		albumId: 'therapy',
@@ -386,7 +500,7 @@ export const songs: Song[] = [
 		trackNumber: 11
 	},
 	{
-		id: 's039',
+		id: 's052',
 		title: 'Statement',
 		album: 'Therapy Session',
 		albumId: 'therapy',
@@ -395,7 +509,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's040',
+		id: 's053',
 		title: 'All I Do',
 		album: 'Therapy Session',
 		albumId: 'therapy',
@@ -403,7 +517,7 @@ export const songs: Song[] = [
 		trackNumber: 13
 	},
 	{
-		id: 's041',
+		id: 's054',
 		title: 'Lost In The Moment',
 		album: 'Therapy Session',
 		albumId: 'therapy',
@@ -414,7 +528,7 @@ export const songs: Song[] = [
 
 	// Perception (2017)
 	{
-		id: 's042',
+		id: 's055',
 		title: 'Intro III',
 		album: 'Perception',
 		albumId: 'perception',
@@ -423,7 +537,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's043',
+		id: 's056',
 		title: 'Outcast',
 		album: 'Perception',
 		albumId: 'perception',
@@ -432,7 +546,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's044',
+		id: 's057',
 		title: '10 Feet Down',
 		album: 'Perception',
 		albumId: 'perception',
@@ -442,7 +556,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's045',
+		id: 's058',
 		title: 'Green Lights',
 		album: 'Perception',
 		albumId: 'perception',
@@ -451,7 +565,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's046',
+		id: 's059',
 		title: 'Dreams',
 		album: 'Perception',
 		albumId: 'perception',
@@ -460,7 +574,7 @@ export const songs: Song[] = [
 		tags: ['journey', 'popular']
 	},
 	{
-		id: 's047',
+		id: 's060',
 		title: 'Let You Down',
 		album: 'Perception',
 		albumId: 'perception',
@@ -469,7 +583,7 @@ export const songs: Song[] = [
 		tags: ['gateway', 'journey', 'popular']
 	},
 	{
-		id: 's048',
+		id: 's061',
 		title: 'Destiny',
 		album: 'Perception',
 		albumId: 'perception',
@@ -478,7 +592,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's049',
+		id: 's062',
 		title: 'My Life',
 		album: 'Perception',
 		albumId: 'perception',
@@ -487,7 +601,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's050',
+		id: 's063',
 		title: "You're Special",
 		album: 'Perception',
 		albumId: 'perception',
@@ -495,7 +609,7 @@ export const songs: Song[] = [
 		trackNumber: 9
 	},
 	{
-		id: 's051',
+		id: 's064',
 		title: 'If You Want Love',
 		album: 'Perception',
 		albumId: 'perception',
@@ -504,7 +618,7 @@ export const songs: Song[] = [
 		tags: ['journey', 'popular']
 	},
 	{
-		id: 's052',
+		id: 's065',
 		title: 'Remember This',
 		album: 'Perception',
 		albumId: 'perception',
@@ -513,7 +627,7 @@ export const songs: Song[] = [
 		tags: ['journey', 'popular']
 	},
 	{
-		id: 's053',
+		id: 's066',
 		title: 'Know',
 		album: 'Perception',
 		albumId: 'perception',
@@ -521,7 +635,7 @@ export const songs: Song[] = [
 		trackNumber: 12
 	},
 	{
-		id: 's054',
+		id: 's067',
 		title: 'Lie',
 		album: 'Perception',
 		albumId: 'perception',
@@ -530,7 +644,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's055',
+		id: 's068',
 		title: '3 A.M.',
 		album: 'Perception',
 		albumId: 'perception',
@@ -538,7 +652,7 @@ export const songs: Song[] = [
 		trackNumber: 14
 	},
 	{
-		id: 's056',
+		id: 's069',
 		title: 'One Hundred',
 		album: 'Perception',
 		albumId: 'perception',
@@ -547,7 +661,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's057',
+		id: 's070',
 		title: 'Outro',
 		album: 'Perception',
 		albumId: 'perception',
@@ -558,7 +672,7 @@ export const songs: Song[] = [
 
 	// The Search (2019)
 	{
-		id: 's058',
+		id: 's071',
 		title: 'The Search',
 		album: 'The Search',
 		albumId: 'search',
@@ -567,7 +681,7 @@ export const songs: Song[] = [
 		tags: ['gateway', 'journey', 'popular']
 	},
 	{
-		id: 's059',
+		id: 's072',
 		title: 'Leave Me Alone',
 		album: 'The Search',
 		albumId: 'search',
@@ -576,7 +690,7 @@ export const songs: Song[] = [
 		tags: ['gateway', 'journey', 'popular']
 	},
 	{
-		id: 's060',
+		id: 's073',
 		title: 'Change',
 		album: 'The Search',
 		albumId: 'search',
@@ -585,7 +699,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's061',
+		id: 's074',
 		title: 'My Stress',
 		album: 'The Search',
 		albumId: 'search',
@@ -593,7 +707,7 @@ export const songs: Song[] = [
 		trackNumber: 4
 	},
 	{
-		id: 's062',
+		id: 's075',
 		title: 'Nate',
 		album: 'The Search',
 		albumId: 'search',
@@ -602,7 +716,7 @@ export const songs: Song[] = [
 		tags: ['journey', 'popular']
 	},
 	{
-		id: 's063',
+		id: 's076',
 		title: 'Time',
 		album: 'The Search',
 		albumId: 'search',
@@ -611,7 +725,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's064',
+		id: 's077',
 		title: 'Returns',
 		album: 'The Search',
 		albumId: 'search',
@@ -620,7 +734,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's065',
+		id: 's078',
 		title: 'When I Grow Up',
 		album: 'The Search',
 		albumId: 'search',
@@ -629,7 +743,7 @@ export const songs: Song[] = [
 		tags: ['journey', 'popular']
 	},
 	{
-		id: 's066',
+		id: 's079',
 		title: 'Only',
 		album: 'The Search',
 		albumId: 'search',
@@ -639,7 +753,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's067',
+		id: 's080',
 		title: 'Let Me Go',
 		album: 'The Search',
 		albumId: 'search',
@@ -648,7 +762,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's068',
+		id: 's081',
 		title: '-Interlude-',
 		album: 'The Search',
 		albumId: 'search',
@@ -656,7 +770,7 @@ export const songs: Song[] = [
 		trackNumber: 11
 	},
 	{
-		id: 's069',
+		id: 's082',
 		title: 'Hate Myself',
 		album: 'The Search',
 		albumId: 'search',
@@ -665,7 +779,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's070',
+		id: 's083',
 		title: 'I Miss The Days',
 		album: 'The Search',
 		albumId: 'search',
@@ -674,7 +788,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's071',
+		id: 's084',
 		title: 'No Excuses',
 		album: 'The Search',
 		albumId: 'search',
@@ -683,7 +797,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's072',
+		id: 's085',
 		title: 'Like This',
 		album: 'The Search',
 		albumId: 'search',
@@ -692,7 +806,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's073',
+		id: 's086',
 		title: 'Options',
 		album: 'The Search',
 		albumId: 'search',
@@ -700,7 +814,7 @@ export const songs: Song[] = [
 		trackNumber: 16
 	},
 	{
-		id: 's074',
+		id: 's087',
 		title: 'WHY',
 		album: 'The Search',
 		albumId: 'search',
@@ -709,7 +823,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's075',
+		id: 's088',
 		title: 'Thinking',
 		album: 'The Search',
 		albumId: 'search',
@@ -717,7 +831,7 @@ export const songs: Song[] = [
 		trackNumber: 18
 	},
 	{
-		id: 's076',
+		id: 's089',
 		title: 'Trauma',
 		album: 'The Search',
 		albumId: 'search',
@@ -728,7 +842,7 @@ export const songs: Song[] = [
 
 	// Clouds (The Mixtape) (2021)
 	{
-		id: 's078',
+		id: 's090',
 		title: 'CLOUDS',
 		album: 'Clouds (The Mixtape)',
 		albumId: 'clouds',
@@ -737,7 +851,7 @@ export const songs: Song[] = [
 		tags: ['popular']
 	},
 	{
-		id: 's079',
+		id: 's091',
 		title: "THAT'S A JOKE",
 		album: 'Clouds (The Mixtape)',
 		albumId: 'clouds',
@@ -746,7 +860,7 @@ export const songs: Song[] = [
 		tags: ['popular']
 	},
 	{
-		id: 's080',
+		id: 's092',
 		title: 'JUST LIKE YOU',
 		album: 'Clouds (The Mixtape)',
 		albumId: 'clouds',
@@ -755,7 +869,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's081',
+		id: 's093',
 		title: 'STORY',
 		album: 'Clouds (The Mixtape)',
 		albumId: 'clouds',
@@ -763,7 +877,7 @@ export const songs: Song[] = [
 		trackNumber: 4
 	},
 	{
-		id: 's082',
+		id: 's094',
 		title: 'PRIDEFUL',
 		album: 'Clouds (The Mixtape)',
 		albumId: 'clouds',
@@ -772,7 +886,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's083',
+		id: 's095',
 		title: 'LOST',
 		album: 'Clouds (The Mixtape)',
 		albumId: 'clouds',
@@ -782,7 +896,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's084',
+		id: 's096',
 		title: 'LAYERS',
 		album: 'Clouds (The Mixtape)',
 		albumId: 'clouds',
@@ -791,7 +905,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's085',
+		id: 's097',
 		title: 'DRIFTING',
 		album: 'Clouds (The Mixtape)',
 		albumId: 'clouds',
@@ -800,7 +914,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's086',
+		id: 's098',
 		title: 'TRUST',
 		album: 'Clouds (The Mixtape)',
 		albumId: 'clouds',
@@ -809,7 +923,7 @@ export const songs: Song[] = [
 		featuring: ['Tech N9ne']
 	},
 	{
-		id: 's087',
+		id: 's099',
 		title: 'PAID MY DUES',
 		album: 'Clouds (The Mixtape)',
 		albumId: 'clouds',
@@ -818,7 +932,7 @@ export const songs: Song[] = [
 		tags: ['journey', 'popular']
 	},
 	{
-		id: 's088',
+		id: 's100',
 		title: 'CLOUDS (Edit)',
 		album: 'Clouds (The Mixtape)',
 		albumId: 'clouds',
@@ -828,7 +942,7 @@ export const songs: Song[] = [
 
 	// HOPE (2023)
 	{
-		id: 's089',
+		id: 's101',
 		title: 'HOPE',
 		album: 'HOPE',
 		albumId: 'hope',
@@ -837,7 +951,7 @@ export const songs: Song[] = [
 		tags: ['gateway', 'journey', 'popular']
 	},
 	{
-		id: 's090',
+		id: 's102',
 		title: 'MOTTO',
 		album: 'HOPE',
 		albumId: 'hope',
@@ -846,7 +960,7 @@ export const songs: Song[] = [
 		tags: ['popular']
 	},
 	{
-		id: 's091',
+		id: 's103',
 		title: 'CAREFUL',
 		album: 'HOPE',
 		albumId: 'hope',
@@ -855,7 +969,7 @@ export const songs: Song[] = [
 		featuring: ['Cordae']
 	},
 	{
-		id: 's092',
+		id: 's104',
 		title: 'MAMA',
 		album: 'HOPE',
 		albumId: 'hope',
@@ -864,7 +978,7 @@ export const songs: Song[] = [
 		tags: ['journey', 'popular']
 	},
 	{
-		id: 's093',
+		id: 's105',
 		title: 'HAPPY',
 		album: 'HOPE',
 		albumId: 'hope',
@@ -872,10 +986,10 @@ export const songs: Song[] = [
 		trackNumber: 5,
 		tags: ['journey', 'popular']
 	},
-	{ id: 's094', title: 'PANDEMONIUM', album: 'HOPE', albumId: 'hope', year: 2023, trackNumber: 6 },
-	{ id: 's095', title: 'SUFFICE', album: 'HOPE', albumId: 'hope', year: 2023, trackNumber: 7 },
+	{ id: 's106', title: 'PANDEMONIUM', album: 'HOPE', albumId: 'hope', year: 2023, trackNumber: 6 },
+	{ id: 's107', title: 'SUFFICE', album: 'HOPE', albumId: 'hope', year: 2023, trackNumber: 7 },
 	{
-		id: 's096',
+		id: 's108',
 		title: 'GONE',
 		album: 'HOPE',
 		albumId: 'hope',
@@ -884,7 +998,7 @@ export const songs: Song[] = [
 		featuring: ['Julia Michaels']
 	},
 	{
-		id: 's097',
+		id: 's109',
 		title: 'BULLET',
 		album: 'HOPE',
 		albumId: 'hope',
@@ -893,17 +1007,17 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's098',
+		id: 's110',
 		title: 'TURN MY BACK',
 		album: 'HOPE',
 		albumId: 'hope',
 		year: 2023,
 		trackNumber: 10
 	},
-	{ id: 's099', title: 'MISTAKE', album: 'HOPE', albumId: 'hope', year: 2023, trackNumber: 11 },
-	{ id: 's100', title: 'LET EM PRAY', album: 'HOPE', albumId: 'hope', year: 2023, trackNumber: 12 },
+	{ id: 's111', title: 'MISTAKE', album: 'HOPE', albumId: 'hope', year: 2023, trackNumber: 11 },
+	{ id: 's112', title: 'LET EM PRAY', album: 'HOPE', albumId: 'hope', year: 2023, trackNumber: 12 },
 	{
-		id: 's101',
+		id: 's113',
 		title: 'RUNNING',
 		album: 'HOPE',
 		albumId: 'hope',
@@ -914,7 +1028,7 @@ export const songs: Song[] = [
 
 	// FEAR EP (2025)
 	{
-		id: 's102',
+		id: 's114',
 		title: 'FEAR',
 		album: 'FEAR',
 		albumId: 'fear',
@@ -923,7 +1037,7 @@ export const songs: Song[] = [
 		tags: ['gateway', 'journey', 'popular']
 	},
 	{
-		id: 's103',
+		id: 's115',
 		title: 'HOME',
 		album: 'FEAR',
 		albumId: 'fear',
@@ -932,7 +1046,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's104',
+		id: 's116',
 		title: 'WHO I WAS',
 		album: 'FEAR',
 		albumId: 'fear',
@@ -942,7 +1056,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's105',
+		id: 's117',
 		title: 'GIVE ME A REASON',
 		album: 'FEAR',
 		albumId: 'fear',
@@ -951,7 +1065,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's106',
+		id: 's118',
 		title: 'SORRY',
 		album: 'FEAR',
 		albumId: 'fear',
@@ -961,7 +1075,7 @@ export const songs: Song[] = [
 		tags: ['journey']
 	},
 	{
-		id: 's107',
+		id: 's119',
 		title: 'WASHED UP',
 		album: 'FEAR',
 		albumId: 'fear',
@@ -972,7 +1086,7 @@ export const songs: Song[] = [
 
 	// Features & Collaborations (Guest Appearances)
 	{
-		id: 's108',
+		id: 's120',
 		title: 'Start Over',
 		artist: 'Flame',
 		album: 'Royal Flush',
@@ -981,7 +1095,7 @@ export const songs: Song[] = [
 		featuring: ['NF']
 	},
 	{
-		id: 's109',
+		id: 's121',
 		title: 'Til the Day I Die',
 		artist: 'TobyMac',
 		album: 'This Is Not a Test',
@@ -990,7 +1104,7 @@ export const songs: Song[] = [
 		featuring: ['NF']
 	},
 	{
-		id: 's110',
+		id: 's122',
 		title: 'The One With My Friends',
 		artist: 'Marty',
 		album: 'Here We Go',
@@ -999,7 +1113,7 @@ export const songs: Song[] = [
 		featuring: ['NF', 'John Givez', 'Wordsplayed', 'Kaleb Mitchell', 'Fern']
 	},
 	{
-		id: 's111',
+		id: 's123',
 		title: 'Epiphany',
 		artist: 'Futuristic',
 		album: 'The Rise',

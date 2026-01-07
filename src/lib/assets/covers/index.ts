@@ -3,6 +3,9 @@
 import nfLogo from './nf-logo.png';
 
 export const covers = {
+	// Moments (2010) - Independent release (cover not available on Cover Art Archive)
+	moments: undefined,
+
 	// I'm Free EP (2012) - Cover Art Archive
 	imfree: 'https://coverartarchive.org/release/d873cf4f-5935-4623-b005-50695a330303/front-500',
 

@@ -18,13 +18,13 @@ export interface Preset {
 }
 
 // Helper function to filter out duplicate songs
-// NF EP versions (s010, s011) should be excluded if Mansion versions (s018, s020) are present
+// NF EP versions (s023, s024) should be excluded if Mansion versions (s031, s033) are present
 function filterDuplicates(songs: Song[]): Song[] {
 	const songIds = new Set(songs.map((s) => s.id));
 	return songs.filter((song) => {
 		// If Mansion version exists, exclude NF EP version
-		if (song.id === 's010' && songIds.has('s018')) return false;
-		if (song.id === 's011' && songIds.has('s020')) return false;
+		if (song.id === 's023' && songIds.has('s031')) return false;
+		if (song.id === 's024' && songIds.has('s033')) return false;
 		return true;
 	});
 }
@@ -57,29 +57,29 @@ export const presets: Preset[] = [
 		description: "A narrative journey through NF's core themes and emotional evolution",
 		getSongs: () =>
 			getSongsByIds([
-				's017', // Mansion
-				's028', // Intro 2
-				's029', // Therapy Session
-				's031', // How Could You Leave Us
-				's025', // Paralyzed
-				's033', // Real
-				's043', // Outcast
-				's047', // Let You Down
-				's049', // My Life
-				's051', // If You Want Love
-				's058', // The Search
-				's063', // Time
-				's069', // Hate Myself
-				's059', // Leave Me Alone
-				's062', // Nate
-				's087', // Paid My Dues
-				's083', // Lost
-				's060', // Change
-				's089', // Hope
-				's093', // Happy
-				's102', // Fear
-				's104', // Who I Was
-				's107' // Washed Up
+				's030', // Mansion
+				's041', // Intro 2
+				's042', // Therapy Session
+				's044', // How Could You Leave Us
+				's038', // Paralyzed
+				's046', // Real
+				's056', // Outcast
+				's060', // Let You Down
+				's062', // My Life
+				's064', // If You Want Love
+				's071', // The Search
+				's076', // Time
+				's082', // Hate Myself
+				's072', // Leave Me Alone
+				's075', // Nate
+				's099', // Paid My Dues
+				's095', // Lost
+				's073', // Change
+				's101', // Hope
+				's105', // Happy
+				's114', // Fear
+				's116', // Who I Was
+				's119' // Washed Up
 			]),
 		shortCode: 'S'
 	},

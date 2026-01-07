@@ -10,6 +10,7 @@
 	let showFinalShareModal = $state(false);
 	let copied = $state(false);
 	let videoYoutubeId = $state<string | null>(null);
+	let isInitialLoad = $state(true);
 
 	onMount(() => {
 		// Check if preset is set, if not redirect to home
@@ -31,6 +32,11 @@
 		};
 		checkMobile();
 		window.addEventListener('resize', checkMobile);
+
+		// Mark initial load as complete after a brief delay
+		setTimeout(() => {
+			isInitialLoad = false;
+		}, 100);
 
 		return () => window.removeEventListener('resize', checkMobile);
 	});
@@ -71,7 +77,7 @@
 
 	// Update URL on ranking changes
 	$effect(() => {
-		if (tierStore.progress.ranked > 0) {
+		if (!isInitialLoad && tierStore.progress.ranked > 0) {
 			const encoded = tierStore.shareUrl.split('?t=')[1];
 			if (encoded) {
 				replaceState(`?t=${encoded}`, {});

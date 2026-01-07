@@ -17,6 +17,7 @@
 		c: 'C',
 		d: 'D',
 		f: 'F',
+		x: 'Skipped',
 		u: 'Unranked'
 	};
 </script>

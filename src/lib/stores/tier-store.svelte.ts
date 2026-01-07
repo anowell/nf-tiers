@@ -1,5 +1,5 @@
 import { encodeTierState, decodeTierState, encodeReadable, type TierRank } from '$lib/encoding';
-import { applySortOrder, type SortOrder, type Preset } from '$lib/data/presets';
+import { applySortOrder, getPresetByShortCode, type SortOrder, type Preset } from '$lib/data/presets';
 import type { Song } from '$lib/data/nf-discography';
 
 export type Theme = 'fear' | 'hope';
@@ -130,8 +130,9 @@ class TierStore {
 	loadFromUrl(encoded: string) {
 		const state = decodeTierState(encoded);
 		if (state) {
-			const preset = this.currentPreset;
-			if (preset && preset.shortCode === state.preset) {
+			const preset = getPresetByShortCode(state.preset);
+			if (preset) {
+				this.currentPreset = preset;
 				this.sortOrder = state.sortOrder;
 				this.rankings = state.rankings;
 			}

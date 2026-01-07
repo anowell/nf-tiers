@@ -21,7 +21,7 @@
 		onspotifyclick
 	}: Props = $props();
 
-	const album = $derived(getAlbumById(song.albumId));
+	const album = $derived(song.albumId ? getAlbumById(song.albumId) : undefined);
 
 	const sizeClasses = {
 		small: 'text-sm',
